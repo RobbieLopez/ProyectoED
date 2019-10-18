@@ -3,7 +3,7 @@
 struct Pila
 {
   int dato;
-  struct Pila *up;
+  struct Pila *arriba;
 };
 void
 insertar (struct Pila *pila, int dato)
@@ -17,7 +17,7 @@ insertar (struct Pila *pila, int dato)
       return;
     }
   nueva->dato = dato;
-  nueva->up = pila;
+  nueva->arriba = pila;
   pila = nueva;
 }
 
@@ -31,7 +31,7 @@ mostrarPila (struct Pila *pila)
     {
       while (actual != NULL)
 	{
-	  actual = actual->up;
+	  actual = actual->arriba;
 	  printf ("%d", actual->dato);
 	}
     }
