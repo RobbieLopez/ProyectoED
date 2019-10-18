@@ -1,0 +1,15 @@
+bool has_cycle(SinglyLinkedListNode* head) {
+SinglyLinkedListNode* tmp = head;
+SinglyLinkedListNode* actual=head;
+do
+{
+tmp=tmp->next->next;
+actual=actual->next;
+if(tmp==actual)
+{
+return true;
+}
+}
+while(actual!= NULL && tmp!=NULL && tmp->next );
+return false;
+}
