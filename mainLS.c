@@ -31,7 +31,6 @@ insertarLista ()
       nuevo->siguiente = NULL;
       ultimo = nuevo;
     }
-  printf ("Dato ingresado\n");
 }
 
 void
@@ -49,7 +48,7 @@ mostrarLista ()
     }
   else
     {
-      printf ("\n La lista esta vacia\n");
+      printf ("\n");
     }
 }
 
@@ -107,7 +106,7 @@ eliminarDato ()
 
 int op;
 int
-main (int argc, char *argv[])
+main ()
 {
   do
     {
