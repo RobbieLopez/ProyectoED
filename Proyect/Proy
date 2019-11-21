@@ -14,6 +14,7 @@ struct info{
 };
 
 struct Lista *insertar(int,int,int,struct Lista*);
+struct info *insertardatos(int,int,int,struct info*);
 //insertar(Producto,Cantidad,Precio);
 struct Lista *mostrar(struct Lista*);
 void mostrarmenu();
@@ -50,7 +51,7 @@ int main(){
         //precio es 10$
         else if((n==10)||(n==11)||(n==14)||(n==15)||(n==19)||(n==20)||(n==23)||(n==22)||(n==27)
         ||(n==39)||(n==38)||(n==33)||(n==32)||(n==31)||(n==35)||(n==36)||(n==37)){
-          Lista = insertar(n,c,8,Lista);
+          Lista = insertar(n,c,10,Lista);
         }
         //precio es 15$
         else if((n==6)||(n==18)){
@@ -74,76 +75,74 @@ int main(){
         }
       system("clear");
       break;
+      case 2:
+        mostrar(Lista);
+      break;
     }
-
-
   } while(opc!=3);
   //mostrar(Lista);
     return 0;
 }
 
 struct Lista *insertar (int n,int c, int dato,struct Lista* Lista){
-  struct info* info=NULL;
-  struct Lista* nuevoLis=NULL;
-  nuevoLis=(struct Lista*)malloc(sizeof(struct Lista));
-  nuevoLis=Lista;
-  if(nuevoLis==NULL){
-    for(int i;i<3;i++){
-      struct info* nuevo=NULL;
-      nuevo=(struct info*)malloc(sizeof(struct info));
-      if(i==0){
-        nuevo->dato=n;
-        nuevo->derecha=NULL;
-        info=nuevo;
-        nuevoLis->arr=info;
-      }
-      if(i==1){
-        nuevo->dato=c;
-        nuevo->derecha=NULL;
-        nuevo->izquierda=info;
-      }
-      if(i==2){
-        nuevo->dato=dato;
-        nuevo->derecha=NULL;
-        nuevo->izquierda=info->derecha;
-      }
-    }
+  struct info *info=NULL;
+  struct Lista *nuevo_lis=NULL;
+  nuevo_lis=(struct Lista*)malloc(sizeof(struct Lista));
+  info=insertardatos(n,c,dato,info);
+  if(Lista==NULL){
+    nuevo_lis->arr=info;
+    Lista=nuevo_lis;
+    Lista->abajo=NULL;
+    return Lista;
   }
   else{
-    struct Lista* aux=NULL;
-    aux=Lista;
-    //Problemas con el while
-    while(aux->abajo!=NULL){
-      aux=aux->abajo;
-    }
-    aux->abajo=nuevoLis;
-    nuevoLis->arriba=aux;
-    /*
-    for(int i;i<3;i++){
-      struct info* nuevo=NULL;
-      nuevo=(struct info*)malloc(sizeof(struct info));
-      if(i==0){
-        nuevo->dato=n;
-        nuevo->derecha=NULL;
-        info=nuevo;
-        nuevoLis->arr=info;
+      struct Lista *aux=NULL;
+      aux=Lista;
+      while (aux->abajo!=NULL){
+        aux=aux->abajo;
       }
-      if(i==1){
-        nuevo->dato=c;
-        nuevo->derecha=NULL;
-        nuevo->izquierda=info;
-      }
-      if(i==2){
-        nuevo->dato=dato;
-        nuevo->derecha=NULL;
-        nuevo->izquierda=info->derecha;
-      }
-    }*/
+      aux->abajo=nuevo_lis;
+      nuevo_lis->arriba=aux;
+      nuevo_lis->arr=info;
+      return Lista;
   }
-  return Lista;
+}
+
+struct info *insertardatos(int n,int c, int dato,struct info* info){
+  for(int i=0;i<3;i++){
+    struct info *nuevo=NULL;
+    nuevo=(struct info*)malloc(sizeof(struct info));
+    if(i==0){
+      nuevo->dato=n;
+      info=nuevo;
+    }
+    else if(i==1){
+      nuevo->dato=c;
+      info->derecha=nuevo;
+      nuevo->izquierda=info;
+    }
+    else if(i==2){
+      nuevo->dato=dato;
+      info->derecha->derecha=nuevo;
+      nuevo->izquierda=info->derecha;
+    }
+  }
+  return info;
 }
 
 struct Lista *mostrar(struct Lista* Lista){
+  system("clear");
+  int contador=1;
+  struct Lista *aux_bus=NULL;
+  aux_bus=Lista;
+    printf("-----------------------------\n");
+    printf("|No.|No.Prod|Cantidad|precio|\n");
+  while(aux_bus!=NULL){
+    printf("|%d  |  %d   |   %d   |  %d  |\n",contador,aux_bus->arr->dato,aux_bus->arr->derecha->dato,aux_bus->arr->derecha->derecha->dato);
+    contador++;
+    aux_bus=aux_bus->abajo;
+  }
+    printf("-----------------------------\n");
   return Lista;
 }
 
@@ -171,3 +170,4 @@ void mostrarmenu(){
   printf("|20) Jabon de tocador           $10 |40)Pilas                               $8  |\n");
   printf("--------------------------------------------------------------------------------\n");
 }
+
