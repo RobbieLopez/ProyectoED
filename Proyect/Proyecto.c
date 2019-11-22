@@ -84,26 +84,26 @@ int main(){
     return 0;
 }
 
-struct Lista *insertar (int n,int c, int dato,struct Lista* Lista){
-  struct info *info=NULL;
-  struct Lista *nuevo_lis=NULL;
-  nuevo_lis=(struct Lista*)malloc(sizeof(struct Lista));
-  info=insertardatos(n,c,dato,info);
+struct Lista *insertar(int n,int c, int dato,struct Lista* Lista){
+  struct info *listadeproductos=NULL;
+  struct Lista *nuevaLista=NULL;
+  nuevaLista=(struct Lista*)malloc(sizeof(struct Lista));
+  listadeproductos=insertardatos(n,c,dato,info);
   if(Lista==NULL){
-    nuevo_lis->arr=info;
-    Lista=nuevo_lis;
+    nuevaLista->arr=listadeproductos;
+    Lista=nuevaLista;
     Lista->abajo=NULL;
     return Lista;
   }
   else{
-      struct Lista *aux=NULL;
-      aux=Lista;
-      while (aux->abajo!=NULL){
-        aux=aux->abajo;
+      struct Lista *tmp=NULL;
+      tmp=Lista;
+      while (tmp->abajo!=NULL){
+        tmp=tmp->abajo;
       }
-      aux->abajo=nuevo_lis;
-      nuevo_lis->arriba=aux;
-      nuevo_lis->arr=info;
+      tmp->abajo=nuevaLista;
+      nuevaLista->arriba=tmp;
+      nuevaLista->arr=listadeproductos;
       return Lista;
   }
 }
