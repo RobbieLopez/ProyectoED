@@ -17,7 +17,6 @@ struct info
 
 struct Lista *insertar (int, int, int, struct Lista *);
 struct info *insertardatos (int, int, int, struct info *);
-//insertar(Producto,Cantidad,Precio);
 struct Lista *mostrar (struct Lista *);
 struct Lista *total (struct Lista *);
 struct Lista *borrar (struct Lista *, int);
@@ -124,22 +123,28 @@ insertar (int n, int c, int dato, struct Lista *Lista)
   struct info *nodoProducto = NULL;
   struct Lista *nuevaLista = NULL;
   nuevaLista = (struct Lista *) malloc (sizeof (struct Lista));
-  nodoProducto = insertardatos (n, c, dato, nodoProducto);
   if (Lista == NULL)
     {
+      nodoProducto = insertardatos (n, c, dato, nodoProducto);
       nuevaLista->arr = nodoProducto;
       Lista = nuevaLista;
       Lista->abajo = NULL;
       return Lista;
     }
+
+  struct Lista *tmp = NULL;
+  tmp = Lista;
+  while ((tmp->abajo != NULL) && (tmp->arr->dato != n))
+    {
+      tmp = tmp->abajo;
+    }
+  if (tmp->arr->dato == n)
+    {
+      tmp->arr->derecha->dati = tmp->arr->derecha->dato + c;
+    }
   else
     {
-      struct Lista *tmp = NULL;
-      tmp = Lista;
-      while (tmp->abajo != NULL)
-	{
-	  tmp = tmp->abajo;
-	}
+      nodoProducto = insertardatos (n, c, dato, nodoProducto);
       tmp->abajo = nuevaLista;
       nuevaLista->arriba = tmp;
       nuevaLista->arr = nodoProducto;
