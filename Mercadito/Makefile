@@ -1,4 +1,4 @@
-contigua.o: mercadito.c
+mercadito.o: mercadito.c
 	gcc mercadito.c -c
 main.o: main.c
 	gcc main.c -c
