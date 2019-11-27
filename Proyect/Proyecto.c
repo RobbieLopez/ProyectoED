@@ -140,7 +140,7 @@ insertar (int n, int c, int dato, struct Lista *Lista)
     }
   if (tmp->arr->dato == n)
     {
-      tmp->arr->derecha->dati = tmp->arr->derecha->dato + c;
+      tmp->arr->derecha->dati = tmp->arr->derecha-> dato + c;
     }
   else
     {
