@@ -3,6 +3,9 @@ struct Lista *insertar (int n,int c, int dato,struct Lista* Lista){
   struct NodoProducto *NodoProducto=NULL;
   struct Lista *nuevo_lis=NULL;
   nuevo_lis=(struct Lista*)malloc(sizeof(struct Lista));
+  if(nuevo_lis==NULL){
+    exit(-1);
+  }
   if(Lista==NULL){
     NodoProducto=insertardatos(n,c,dato,NodoProducto);
     nuevo_lis->informacion=NodoProducto;
